@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-self: center;
+  align-content: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-items: center;
+  justify-self: center;
+  background-image: url('./assets/background-img.jpg');
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  z-index: 1;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
-.App-link {
-  color: #61dafb;
+.mainComponentApp{
+  width: 80vw;
+  align-self: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.LoginTab{
+  background: rgba(54, 53, 53, 0.4) !important;
+  color: rgba(227, 221, 221, 0.964) !important;
+  font-weight: 900 !important;
+
 }
+
+.LoginTab.active{
+  background: rgba(221, 217, 217, 0.964) !important;
+  color:  rgb(27, 26, 26) !important;
+  font-weight: 900;
+
+}
+
+.SignupTab{
+  background: rgba(54, 53, 53, 0.4) !important;
+  color: rgba(227, 221, 221, 0.964) !important;
+  font-weight: 900 !important;
+}
+.SignupTab.active{
+  background: rgba(221, 217, 217, 0.964) !important;
+  color:  rgb(27, 26, 26) !important;
+  font-weight: 900;
+}
+

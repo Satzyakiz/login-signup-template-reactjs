@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import React, { Component, useState, useEffect } from "react";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 function App() {
+  const [key, setKey] = useState('login');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="mainComponentApp">
+        <Tabs
+          id="controlled-tab"
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+          className="myClass"
+          justify
         >
-          Learn React
-        </a>
-      </header>
+          <Tab eventKey="login" title="Login" tabClassName="LoginTab">
+            <Login />
+          </Tab>
+          <Tab eventKey="signup" title="Signup" tabClassName="SignupTab">
+            <Signup />
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 }
 
 export default App;
+
+const styles = {
+  tabComponent: {
+    color: "red",
+  },
+};
