@@ -1,0 +1,11 @@
+.landingMainDiv{
+}
+.cardMain{
+    padding: 10px;
+    display: 'flex';
+  justify-content: 'center';
+}
+
+.cardBody{
+    margin: 10px;
+}
