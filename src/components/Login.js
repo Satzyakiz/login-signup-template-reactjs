@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import CustomButton from "./Button";
 import "../css/login.css";
@@ -10,6 +11,11 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("Localstorage: " + localStorage.getItem("loggedIn"))
+  }, [])
 
   const handleClick = async () => {
     console.log(username);
@@ -19,7 +25,7 @@ const Login = (props) => {
       setUsernameErr("Please enter a username");
       error = true;
     }
-    if (password.legnth < 8) {
+    if (password.length < 8) {
       setPasswordErr("Please enter a valid password");
       error = true;
     }
@@ -34,11 +40,9 @@ const Login = (props) => {
     const body = JSON.stringify(obj);
     console.log("Body is " + body + " Type is " + typeof body);
     var ret = await fetch(baseURL + login, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        credentials: 'same-origin', // include, *same-origin, omit
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
       body: body
     })
@@ -48,8 +52,16 @@ const Login = (props) => {
         console.log("error is " + err);
         console.log(err.stack)
       });
+    console.log("Returned value is " + ret);
     setIsLoading(false);
-    console.log(ret);
+    
+    if(ret.length){
+        localStorage.setItem("loggedIn", "yes");
+        navigate("/landing");
+    }else{
+        setPasswordErr("Please enter a valid username and password");
+    }
+    
   };
   return (
     <div className="loginMainDiv">

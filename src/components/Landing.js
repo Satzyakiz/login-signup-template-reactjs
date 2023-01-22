@@ -20,6 +20,7 @@ const Landing = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
+    console.log("Localstorage: " + localStorage.getItem("loggedIn"));
     getUsers();
   }, []);
   useEffect(() => {}, [users]);
@@ -36,6 +37,7 @@ const Landing = (props) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+      localStorage.removeItem("loggedIn");
       navigate("/");
     }, 2000);
   };

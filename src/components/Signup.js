@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Input from "./Input";
 import CustomButton from "./Button";
 import '../css/signup.css';
+import { baseURL, signup } from "../routes";
+import { useNavigate } from "react-router-dom";
 
 let emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 let passwordRegex = /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,16}$/;
@@ -13,7 +15,7 @@ const Signup = (props) => {
     const [lastname, setLastname] = useState('');
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
-    
+    const navigate = useNavigate();
 
     const [usernameErr, setUsernameErr] = useState('');
     const [emailErr, setEmailErr] = useState('');
@@ -25,7 +27,7 @@ const Signup = (props) => {
     const [btnloading, setBtnloading] = useState(false);
     
 
-    const handleClick = () => {
+    const handleClick = async () => {
         setUsernameErr('');
         setEmailErr('');
         setFirstnameErr('');
@@ -63,6 +65,35 @@ const Signup = (props) => {
         if(anyErr)
             return;
         //POST Request
+        setBtnloading(true);
+        var obj = {}
+        obj.username = username;
+        obj.password = password;
+        obj.email = email;
+        obj.firstname = firstname;
+        obj.lastname = lastname;
+        obj.id = Math.ceil(Math.random() * 1000);
+        const body = JSON.stringify(obj);
+        var ret = await fetch(baseURL + signup, {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          body: body
+        })
+          .then((response) => response.json())
+          .then(data => data)
+          .catch((err) => {
+            console.log("error is " + err);
+            console.log(err.stack)
+          });
+        console.log("Returned value is " + ret);
+        setBtnloading(false);
+        
+        if(ret.data){
+            localStorage.setItem("loggedIn", "yes");
+            navigate("/landing");
+        }
     }
 
     return (
