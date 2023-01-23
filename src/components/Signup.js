@@ -26,7 +26,7 @@ const Signup = (props) => {
 
     const [btnloading, setBtnloading] = useState(false);
     
- 
+  
     const handleClick = async () => {
         setUsernameErr('');
         setEmailErr('');
